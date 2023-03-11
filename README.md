@@ -1,2 +1,2 @@
-# Web-Technology-using-PHP-My-SQL
-PHP + My SQL 
+# Web-Technology-using-PHP-MySQL
+Unlock your coding potential 
