@@ -34,24 +34,38 @@ if ($result->num_rows > 0) {
     echo "<tr><th>ID</th><th>Name</th><th>Email</th><th>Picture</th><th>Update</th><th>Delete</th><th>Download</th></tr>";
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td>".$row["id"]."</td>";
-        echo "<td>".$row["name"]."</td>";
-        echo "<td>".$row["email"]."</td>";
-        echo "<td><img src='images/".$row["pic"]."' width='100'></td>";
+        echo "<td>" . $row["id"] . "</td>";
+        echo "<td>" . $row["name"] . "</td>";
+        echo "<td>" . $row["email"] . "</td>";
+        echo "<td><img src='images/" . $row["pic"] . "' width='100'></td>";
         // Add update and delete buttons
-        echo "<td><a href='update.php?id=".$row["id"]."'>Update</a></td>";
-        echo "<td><a href='delete.php?id=".$row["id"]."' onclick='return confirm(\"Are you sure?\")'>Delete</a></td>";
+        echo "<td><a href='update.php?id=" . $row["id"] . "'>Update</a></td>";
+        echo "<td><a href='delete.php?id=" . $row["id"] . "' onclick='return confirm(\"Are you sure?\")'>Delete</a></td>";
         // Add download button
-        echo "<td><a href='download.php?file=".$row["pic"]."'>Download</a></td>";
+        echo "<td><a href='download.php?filename=" . $row["pic"] . "'>Download</a></td>";
         echo "</tr>";
     }
     echo "</table>";
-    // Add back button
-    echo "<button onclick='window.history.back()'>Back</button>";
 } else {
     echo "No records found";
 }
 
 // Close database connection
 $conn->close();
-?>
+
+// Function to download file
+function downloadFile($filename)
+{
+    // Set headers
+    header("Content-Type: application/octet-stream");
+    header("Content-Disposition: attachment; filename=$filename");
+
+    // Read file
+    readfile("images/" . $filename);
+}
+
+// Check if download button was clicked
+if (isset($_GET['filename'])) {
+    $filename = $_GET['filename'];
+    downloadFile($filename);
+}

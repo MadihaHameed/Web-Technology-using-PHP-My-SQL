@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
     echo "<input type='submit' value='Search'>";
     echo "</form>";
     echo "<table>";
-    echo "<tr><th>ID</th><th>Name</th><th>Email</th><th>Picture</th><th>Update</th><th>Delete</th><th>Download</th></tr>";
+    echo "<tr><th>ID</th><th>Name</th><th>Email</th><th>Picture</th><th>Update</th><th>Delete</th></tr>";
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td>".$row["id"]."</td>";
@@ -41,13 +41,9 @@ if ($result->num_rows > 0) {
         // Add update and delete buttons
         echo "<td><a href='update.php?id=".$row["id"]."'>Update</a></td>";
         echo "<td><a href='delete.php?id=".$row["id"]."' onclick='return confirm(\"Are you sure?\")'>Delete</a></td>";
-        // Add download button
-        echo "<td><a href='download.php?file=".$row["pic"]."'>Download</a></td>";
         echo "</tr>";
     }
     echo "</table>";
-    // Add back button
-    echo "<button onclick='window.history.back()'>Back</button>";
 } else {
     echo "No records found";
 }
